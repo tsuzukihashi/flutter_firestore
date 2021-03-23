@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firestore_demo/book_list_page.dart';
 import 'package:flutter_firestore_demo/main_model.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp();
     return MaterialApp(
       home: ChangeNotifierProvider<MainModel>(
         create: (_) => MainModel(),
@@ -24,7 +27,10 @@ class MyApp extends StatelessWidget {
                   Text(model.value, style: TextStyle(fontSize: 44)),
                   RaisedButton(
                     onPressed: () {
-                      model.changeValueText();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BookList()),
+                      );
                     },
                     child: Text('Change Notifier'),
                   )
